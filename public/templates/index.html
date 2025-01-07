@@ -1,0 +1,83 @@
+<html lang="en-US"></html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <title>FEH Proximity Demo</title>
+</head>
+<body>
+    <header>
+        <h1><span>FEH</span> Proximity Demo</h1>
+        <p>
+            This is a mock website playing around with Fire Emblem Heroes (FEH)  units 
+            and the notion of proximity. I hope we (I) can get things moving.
+            The operations planned to be implemented so far are <b>UNIT INTERPOLATION</b>
+            and <b>NEAREST NEIGHBORS</b>.
+        </p>
+        <section>
+            <h2>Unit Interpolation</h2>
+            <p>
+                Draws a line between two units based on their <b>[HP, ATK, SPD, DEF, RES]</b> stats, 
+                treated as a 5-dimensional vector. The nearest unit to each 1/10-th of the line
+                is then found and returned.
+            </p>
+        </section>
+    </header>
+    <main>
+        <div id="operation_div">
+            <!-- OPERATIONS WILL APPEAR HERE, BY DEFAULT WE'LL SHOW INTERPOLATION -->
+            <div class="feh_unit_operation">
+
+                <!-- Choose the FEH UNIT -->
+                <form method="get" id="unit_select_interface">
+                    <fieldset id="unit_input_fields">
+                        <legend>Unit Interpolation</legend>
+                    </fieldset>
+                </form>
+                <div class="operation_result">
+                </div>
+
+                <div id="lerp_output_content">
+                    <section class="output_unit_line">
+                        <div class="circle_set">
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
+                        <div class="vdistance_lines">
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                            <div class="vdist_line"></div>
+                        </div>
+                        <div class="lerp_line"></div>
+                    </section>
+                    <span class="result_span">
+                        <p id="cur_unit_partition">0.00%</p>
+                        <p id="cur_unit">Current Unit</p>
+                        <p id="cur_unit_distance">Distance</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- <footer>
+        <p>Made with Rust.</p>
+    </footer> -->
+    <script type="text/javascript" src="../scripts/main.js"></script>
+</body>
