@@ -2,6 +2,8 @@ An updated version of the FEH Unit Comparison, the repository for that can be fo
 
 ![Unit Interpolation Figure 1](assets/unit_interpolation_figure_1.png)
 
+The figure above is a visualization of what this repository does. We take two FEH Units, construct an interpolating line between said units (treated as points based on their stats), and then find the nearest unit to said interpolation point based on a given metric. Nearest neighbor computation is sped up through the use of a KDTree data structure. 
+
 ![Interpolating between Lon'Qu and Winter Edelgard. The nearest units we pass by are: Chad, Nils, Echida, Valentine's Eliwood, Halloween Kurthnaga, Ascended Eliwood, Halloween Corrin, and Summer Edelgard.](./examples/lonqu_to_winter_edelgard.gif "Lon'Qu to Winter Edelgard")
 
 ![Interpolating between Camus and Sirius. We only pass by one unit, being Seigbert.](./examples/camus_to_sirius.gif "Camus to Sirius")
