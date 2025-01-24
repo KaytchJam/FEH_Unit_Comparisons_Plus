@@ -104,15 +104,10 @@ where
     type Item = (usize, &'a <P as Deref>::Target);
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.m_node_at {
-            Some(node) => {
-                let out_data: (usize, &<P as Deref>::Target) = (node.m_axis, node.m_midpoint.deref());
-                self.m_node_at = node.travel(self.m_ref_point).and_then(| idx | Some(&self.m_node_list[idx]));
-                Some(out_data)
-            },
-
-            None => None
-        }
+        return self.m_node_at.and_then(|node: &CKDNode<P>| {
+            self.m_node_at = node.travel(self.m_ref_point).and_then(|idx| Some(&self.m_node_list[idx]));
+            Some((node.m_axis, node.m_midpoint.deref()))
+        });
     }
 }
 
@@ -341,6 +336,7 @@ where
         }
     }
 
+    /** Constructs an iterator for the KDTree that travels it in a given tree order */
     pub fn tree_iter<'parent>(&'parent self, order: TreeOrder) -> TreeIter<'parent, P> {
         return TreeIter {
             m_buffer: &self.m_nodelist,
@@ -349,6 +345,7 @@ where
         };
     }
 
+    /** Constructs an iterator that, given a reference point, travels through the tree and returns all nodes encountered */
     pub fn tree_travel_iter<'parent, 'other>(&'parent self, point: &'other <P as Deref>::Target) -> TreeTravelIter<'parent, 'other, P> {
         return TreeTravelIter {
             m_node_list: &self.m_nodelist,
