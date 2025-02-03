@@ -1,8 +1,9 @@
 extern crate nalgebra as na;
 use std::fs;
 use std::collections::BTreeMap;
-use std::ops::{Deref, Index};
-use crate::lerp::{self, MonomialLerp};
+use std::ops::Index;
+
+use crate::lerp::MonomialLerp;
 use crate::kdtree::CKDTree;
 use std::sync::Arc;
 
@@ -22,6 +23,8 @@ impl FehUnit {
         };
     }
 
+    // Returns a reference to a FehUnit's stats, which is internally stored
+    // as an na::Vector5<f32>
     fn get_stats(&self) -> &na::Vector5<f32> {
         return &self.m_stats;
     }
@@ -171,8 +174,17 @@ impl FehManager {
         return FehUnit::new("".to_string(), "".to_string(), stats.clone());
     }
 
+    fn vec5_squared_metric_distance(f1: &FehUnit, f2: &FehUnit) -> f32 {
+        let mut squared_dist: f32 = 0f32;
+        for i in 0..5 {
+            squared_dist += (f1.m_stats[i] - f2.m_stats[i]).powf(2f32);
+        }
+
+        return squared_dist;
+    }
+
     fn closest_to<'man, 'temp>(&'man self, point: &'temp na::Vector5<f32>, tree: &'man FehKDTree) -> &FehUnit {
-        return tree.0.nearest_neighbor(&FehManager::mock_unit(point), |f1,f2| f1.m_stats.metric_distance(&f2.m_stats)).unwrap();
+        return tree.0.nearest_neighbor(&FehManager::mock_unit(point), |f1,f2| FehManager::vec5_squared_metric_distance(f1, f2)).unwrap();
     }
 
     pub fn lerp_units<'man>(&'man self, unit1: &str, unit2: &str, tree: &'man FehKDTree) -> FehVec {
