@@ -34,6 +34,7 @@ function construct_unit_div(unit_array, num, default_name) {
     return unit_div;
 }
 
+// Builds our submit button
 function construct_unit_submit() {
     let submit_div = document.createElement("div");
     submit_div.innerHTML = "<button type=\"button\" class=\"feh_operation_submit\"> Submit </button>"
@@ -53,10 +54,12 @@ function clear_children(node) {
     return node;
 }
 
+// Normalization function, input the old range, the new range, and the target value
 function norm_to_range(val, old_min, old_max, new_min, new_max) {
     return (val - old_min) / (old_max - old_min) * (new_max - new_min) + new_min;
 }
 
+// Constructs the result elements for the interpolation input
 async function construct_lerp_result(op_query) {
     const op_url = "/?lerp&startunit=" + op_query[0] + "&endunit=" + op_query[1];
     lerp_units = await (await fetch(op_url)).json();
@@ -132,6 +135,7 @@ async function construct_lerp_result(op_query) {
     document.getElementById("lerp_output_content").style.visibility = "visible";
 }
 
+// Helper class for tracking information on each operation type
 class FehOperation {
     num_units;
     op_name;
