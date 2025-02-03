@@ -103,6 +103,7 @@ where
     <<P as Deref>::Target as Index<usize>>::Output: PartialOrd + Copy {
     type Item = (usize, &'a <P as Deref>::Target);
 
+    // Position the TreeIterator to the next item in the list 
     fn next(&mut self) -> Option<Self::Item> {
         return self.m_node_at.and_then(|node: &CKDNode<P>| {
             self.m_node_at = node.travel(self.m_ref_point).and_then(|idx| Some(&self.m_node_list[idx]));
@@ -112,11 +113,12 @@ where
 }
 
 impl<T> CKDNode<T> {
-
+    /** Get the the child CKDNode left of the current node. */
     fn get_left(&self) -> &Option<usize> {
         return &self.m_dirs[0];
     }
 
+    /** Get the the child CKDNode left of the current node. */
     fn get_right(&self) -> &Option<usize> {
         return &self.m_dirs[1];
     }
