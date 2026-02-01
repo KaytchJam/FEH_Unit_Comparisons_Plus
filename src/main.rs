@@ -11,7 +11,7 @@ mod feh_manager;
 
 #[get("/")]
 async fn index() -> Option<NamedFile> {
-    return NamedFile::open("public/templates/index.html").await.ok();
+    return NamedFile::open("public/docs/index.html").await.ok();
 }
 
 
@@ -32,7 +32,7 @@ async fn get_pub_file(pub_file: &str, file_name: &str) -> Option<NamedFile> {
             }
         },
         
-        "templates" => {
+        "docs" => {
             if file_name[(file_name.len() - 5)..file_name.len()] != *".html" {
                 return None;
             }
